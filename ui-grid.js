@@ -3928,6 +3928,11 @@ angular.module('ui.grid')
           }
         }
       }
+    }
+    // Empty data set
+    else {
+      // Reset the row HashMap
+      self.createRowHashMap();
 
       // Look for new rows
       var newRows = unfoundNewRows || [];
@@ -7798,10 +7803,11 @@ angular.module('ui.grid')
 
           /**
            * @ngdoc property
-           * @name footerCellTemplate
+           * @name cellTemplate
            * @propertyOf ui.grid.class:GridOptions.columnDef
-           * @description a custom template for the footer for this column.  The default
-           * is ui-grid/uiGridFooterCell
+           * @description a custom template for each cell in this column.  The default
+           * is ui-grid/uiGridCell.  If you are using the cellNav feature, this template
+           * must contain a div that can receive focus.
            *
            */
           if (!colDef.footerCellTemplate) {
@@ -9688,6 +9694,38 @@ module.service('gridUtil', ['$log', '$window', '$document', '$http', '$templateC
     var browser = s.detectBrowser();
 
     var dir = s.getStyles(element)['direction'];
+
+    // IE stays normal in RTL
+    if (browser === 'ie') {
+      return scrollLeft;
+    }
+    // Chrome doesn't alter the scrollLeft value. So with RTL on a 400px-wide grid, the right-most position will still be 400 and the left-most will still be 0;
+    else if (browser === 'chrome') {
+      if (dir === 'rtl') {
+        // Get the max scroll for the element
+        var maxScrollLeft = element.scrollWidth - element.clientWidth;
+
+        // Subtract the current scroll amount from the max scroll
+        return maxScrollLeft - scrollLeft;
+      }
+      else {
+        return scrollLeft;
+      }
+    }
+    // Firefox goes negative!
+    else if (browser === 'firefox') {
+      if (dir === 'rtl') {
+        return scrollLeft * -1;
+      }
+      else {
+        return scrollLeft;
+      }
+    }
+    else {
+      // TODO(c0bra): Handle other browsers? Android? iOS? Opera?
+      return scrollLeft;
+    }
+  };
 
     // IE stays normal in RTL
     if (browser === 'ie') {
@@ -12078,6 +12116,9 @@ module.filter('px', function() {
           // Broadcast the navigation
           grid.cellNav.broadcastCellNav(rowCol);
 
+          if (scrollEvent.y || scrollEvent.x) {
+            scrollEvent.fireScrollingEvent();
+          }
         },
 
         /**
