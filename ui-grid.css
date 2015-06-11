@@ -60,7 +60,7 @@
 }
 .ui-grid-header {
   border-bottom: 1px solid #d4d4d4;
-  box-sizing: border-box;
+  box-sizing: content-box;
 }
 .ui-grid-top-panel {
   position: relative;
@@ -108,7 +108,6 @@
 }
 .ui-grid-header-cell-row {
   display: table-row;
-  position: relative;
 }
 .ui-grid-header-cell {
   position: relative;
@@ -218,23 +217,6 @@
 .ui-grid-filter-container .ui-grid-filter-button [class^="ui-grid-icon"]:hover {
   opacity: 1;
 }
-.ui-grid-filter-container .ui-grid-filter-button-select {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-}
-.ui-grid-filter-container .ui-grid-filter-button-select [class^="ui-grid-icon"] {
-  position: absolute;
-  top: 50%;
-  line-height: 32px;
-  margin-top: -16px;
-  right: 0px;
-  opacity: 0.66;
-}
-.ui-grid-filter-container .ui-grid-filter-button-select [class^="ui-grid-icon"]:hover {
-  opacity: 1;
-}
 input[type="text"].ui-grid-filter-input {
   padding: 0;
   margin: 0;
@@ -259,34 +241,6 @@ input[type="text"].ui-grid-filter-input {
 }
 input[type="text"].ui-grid-filter-input:hover {
   border: 1px solid #d4d4d4;
-}
-select.ui-grid-filter-select {
-  padding: 0;
-  margin: 0;
-  border: 0;
-  width: 90%;
-  border: 1px solid #d4d4d4;
-  -webkit-border-top-right-radius: 0px;
-  -webkit-border-bottom-right-radius: 0;
-  -webkit-border-bottom-left-radius: 0;
-  -webkit-border-top-left-radius: 0;
-  -moz-border-radius-topright: 0px;
-  -moz-border-radius-bottomright: 0;
-  -moz-border-radius-bottomleft: 0;
-  -moz-border-radius-topleft: 0;
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-  border-top-left-radius: 0;
-  -moz-background-clip: padding-box;
-  -webkit-background-clip: padding-box;
-  background-clip: padding-box;
-}
-select.ui-grid-filter-select:hover {
-  border: 1px solid #d4d4d4;
-}
-.ui-grid-filter-cancel-button-hidden select.ui-grid-filter-select {
-  width: 100%;
 }
 .ui-grid-render-container {
   position: inherit;
@@ -315,8 +269,8 @@ select.ui-grid-filter-select:hover {
   overflow-y: scroll;
   -webkit-overflow-scrolling: touch;
 }
-.ui-grid-viewport:focus {
-  outline: none !important;
+.ui-grid-viewport :focus {
+  outline: none;
 }
 .ui-grid-canvas {
   position: relative;
@@ -404,8 +358,8 @@ select.ui-grid-filter-select:hover {
   height: 0;
   display: none;
 }
-.ui-grid-row .ui-grid-cell.ui-grid-row-header-cell {
-  background-color: #f0f0ee;
+.ui-grid-row-header-cell {
+  background-color: #F0F0EE !important;
   border-bottom: solid 1px #d4d4d4;
 }
 .ui-grid-footer-panel-background {
@@ -512,11 +466,10 @@ input[type="text"].ui-grid-filter-input:hover {
   z-index: 2;
   position: absolute;
   right: 0;
-  top: 0;
   background: #f3f3f3;
   border: 1px solid #d4d4d4;
   cursor: pointer;
-  height: 31px;
+  min-height: 27px;
   font-weight: normal;
 }
 .ui-grid-menu-button .ui-grid-icon-container {
@@ -526,16 +479,17 @@ input[type="text"].ui-grid-filter-input:hover {
   right: 0;
 }
 .ui-grid-menu-button .ui-grid-menu .ui-grid-menu-mid {
-  overflow: scroll;
+  overflow-y: scroll;
   max-height: 300px;
   border: 1px solid #d4d4d4;
 }
 .ui-grid-menu {
   z-index: 2;
   position: absolute;
+  overflow: hidden;
   padding: 0 10px 20px 10px;
   cursor: pointer;
-  box-sizing: border-box;
+  box-sizing: content-box;
 }
 .ui-grid-menu .ui-grid-menu-inner {
   background: #f3f3f3;
@@ -903,10 +857,6 @@ div.ui-grid-cell input.ng-valid {
 .expandableRow .ui-grid-row:nth-child(even) .ui-grid-cell {
   background-color: #f3f3f3;
 }
-.scrollFiller {
-  float: left;
-  border: 1px solid #d4d4d4;
-}
 
 /* This file contains variable declarations (do not remove this line) */
 /*-- VARIABLES (DO NOT REMOVE THESE COMMENTS) --*/
@@ -1007,8 +957,7 @@ div.ui-grid-cell input.ng-valid {
 */
 /*-- END VARIABLES (DO NOT REMOVE THESE COMMENTS) --*/
 .movingColumn {
-  position: absolute;
-  top: 0;
+  position: fixed;
   border: 1px solid #d4d4d4;
   box-shadow: inset 0 0 14px rgba(0, 0, 0, 0.2);
 }
@@ -1123,29 +1072,19 @@ div.ui-grid-cell input.ng-valid {
 */
 /*-- END VARIABLES (DO NOT REMOVE THESE COMMENTS) --*/
 .ui-grid-pinned-container {
-  position: absolute;
-  display: inline;
-  top: 0;
-}
-.ui-grid-pinned-container.ui-grid-pinned-container-left {
   float: left;
-  left: 0;
-}
-.ui-grid-pinned-container.ui-grid-pinned-container-right {
-  float: right;
-  right: 0;
 }
 .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-header-cell:last-child {
   box-sizing: border-box;
   border-right: 1px solid;
   border-width: 1px;
-  border-right-color: #aeaeae;
+  border-color: #aeaeae;
 }
 .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-cell:last-child {
   box-sizing: border-box;
   border-right: 1px solid;
   border-width: 1px;
-  border-right-color: #aeaeae;
+  border-color: #aeaeae;
 }
 .ui-grid-pinned-container.ui-grid-pinned-container-left .ui-grid-header-cell:not(:last-child) .ui-grid-vertical-bar,
 .ui-grid-pinned-container .ui-grid-cell:not(:last-child) .ui-grid-vertical-bar {
@@ -1166,13 +1105,13 @@ div.ui-grid-cell input.ng-valid {
   box-sizing: border-box;
   border-left: 1px solid;
   border-width: 1px;
-  border-left-color: #aeaeae;
+  border-color: #aeaeae;
 }
 .ui-grid-pinned-container.ui-grid-pinned-container-right .ui-grid-cell:first-child {
   box-sizing: border-box;
   border-left: 1px solid;
   border-width: 1px;
-  border-left-color: #aeaeae;
+  border-color: #aeaeae;
 }
 .ui-grid-pinned-container.ui-grid-pinned-container-right .ui-grid-header-cell:not(:first-child) .ui-grid-vertical-bar,
 .ui-grid-pinned-container .ui-grid-cell:not(:first-child) .ui-grid-vertical-bar {
@@ -1188,6 +1127,9 @@ div.ui-grid-cell input.ng-valid {
   left: -1px;
   width: 1px;
   background-color: #aeaeae;
+}
+.ui-grid-render-container-body {
+  float: left;
 }
 
 /* This file contains variable declarations (do not remove this line) */
@@ -1302,8 +1244,8 @@ div.ui-grid-cell input.ng-valid {
 * @section font library path
 */
 /*-- END VARIABLES (DO NOT REMOVE THESE COMMENTS) --*/
-.ui-grid-row.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell {
-  background-color: #c9dde1;
+.ui-grid-row-selected > [ui-grid-row] > .ui-grid-cell {
+  background-color: #c9dde1 !important;
 }
 .ui-grid-disable-selection {
   -webkit-touch-callout: none;
