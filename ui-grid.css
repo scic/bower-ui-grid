@@ -45,6 +45,11 @@
 .ui-grid-invisible {
   visibility: hidden;
 }
+.ui-grid-contents-wrapper {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
 .ui-grid-top-panel-background {
   background: #f3f3f3;
   background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #eeeeee), color-stop(1, #ffffff));
@@ -770,6 +775,10 @@ input[type="text"].ui-grid-filter-input:hover {
 .ui-grid-cell-focus {
   outline: 0;
   background-color: #b3c4c7;
+}
+.ui-grid-focuser {
+  width: 0px;
+  height: 0px;
 }
 
 /* This file contains variable declarations (do not remove this line) */
