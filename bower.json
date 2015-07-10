@@ -1,7 +1,7 @@
 {
   "name": "angular-ui-grid",
   "description": "A data grid for Angular",
-  "version": "3.0.0-rc.22-scic2",
+  "version": "3.0.0-rc.22-scic3",
   "main": [
     "./ui-grid.css",
     "./ui-grid.eot",
